@@ -1,0 +1,31 @@
+.Header {
+    width: 99%;
+    margin: auto;
+    box-shadow: 0px 9px 15px 0px rgba(0,0,0,0.3);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+    .content {
+        width: inherit;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px 20px;
+
+        .logo {
+            margin: 0 auto;
+        }
+
+        .toggle {
+            background-color: transparent;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            span {
+                font-weight: 600;
+            }
+        }
+    }
+}

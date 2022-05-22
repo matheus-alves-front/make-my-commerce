@@ -1,47 +1,47 @@
 import type { AppProps } from 'next/app'
 import { useState } from 'react'
 import { Header } from '../src/components/Header'
-import { HeaderBuilder } from '../src/components/Header/builder/HeaderBuilder'
+import { HeaderBuilder } from '../src/components/Header/HeaderBuilder'
 import { HeaderBuilderContext } from '../src/contexts/HeaderBuilderContext'
 
 import '../styles/globals.css'
 
 interface HeaderBuilderData {
-  logoSizeValue: number
-  iconSizeValue: number
-  iconColorValue: string
+  logoSize: number
+  iconSize: number
+  iconColor: string
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [logoSizeValue, setLogoSizeValue] = useState(100)
-  const [iconSizeValue, setIconSizeValue] = useState(50)
-  const [iconColorValue, setIconColorValue] = useState('#FFFFFF')
+  const [logoSize, setLogoSize] = useState(100)
+  const [iconSize, setIconSize] = useState(50)
+  const [iconColor, setIconColor] = useState('#FFFFFF')
 
-  function handleHeaderStyles({
-    logoSizeValue, 
-    iconSizeValue,
-    iconColorValue
-  }: HeaderBuilderData) {
-    console.log({logoSizeValue, iconSizeValue, iconColorValue})
-    setLogoSizeValue(logoSizeValue)
-    setIconSizeValue(iconSizeValue)
-    setIconColorValue(iconColorValue)
+  function handleHeaderStyles(
+    logoSize: number, 
+    iconSize: number,
+    iconColor: string
+    ) {
+    console.log({logoSize, iconSize, iconColor})
+    setLogoSize(logoSize)
+    setIconSize(iconSize)
+    setIconColor(iconColor)
   }
 
   return (
     <>
       <HeaderBuilderContext.Provider 
         value={{
-          logoSizeValue,
-          iconSizeValue,
-          iconColorValue,
+          logoSize,
+          iconSize,
+          iconColor,
           SubmitEvent: handleHeaderStyles
         }}
       >
         <Header 
-            logo_size={logoSizeValue} 
-            icon_size={iconSizeValue} 
-            icon_color={iconColorValue} 
+            logo_size={logoSize} 
+            icon_size={iconSize} 
+            icon_color={iconColor} 
         />
 
         <HeaderBuilder HeaderBuilderProps={handleHeaderStyles} />

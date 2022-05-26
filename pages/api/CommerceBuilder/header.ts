@@ -11,9 +11,15 @@ export default function headerConfig(
   request: NextApiRequest,
   response: NextApiResponse<Data>
 ) {
-  response.status(200).json({
-    logo_size: 100,
-    icon_color: '#00000',
-    icon_size: 22,
+  const {
+    logoSize,
+    iconSize,
+    iconColor
+  } = request.body
+
+  return response.status(200).json({
+    logo_size: 200,
+    icon_size: 30,
+    icon_color: '#000000',
   })
 }

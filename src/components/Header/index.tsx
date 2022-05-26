@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { useState, useContext } from 'react';
-import { HeaderBuilderContext } from '../../contexts/HeaderBuilderContext';
+import { useState } from 'react';
+import axios from 'axios'
 
 import { 
     BsCartPlusFill,
@@ -8,7 +8,6 @@ import {
     BsToggleOn, 
     BsToggleOff 
 } from "react-icons/bs";
-
 import styles from './header.module.scss'
 
 
@@ -16,17 +15,19 @@ interface HeaderProps {
     logo_size: number;
     icon_color: string;
     icon_size: number;
+    background_color: string;
 }
 
 export function Header({
     logo_size,
     icon_size,
-    icon_color
+    icon_color,
+    background_color
 }: HeaderProps) {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     
     return (
-        <header className={styles.Header}>
+        <header className={styles.Header} style={{backgroundColor: background_color}}>
             <div className={styles.content}>
                 <button 
                     className={styles.toggle}
@@ -37,7 +38,7 @@ export function Header({
                     ): (
                         <BsToggleOff fontSize={icon_size} color={icon_color} />
                     )}
-                    <span>Menu</span>
+                    <span style={{color: icon_color}}>Menu</span>
                 </button>
                 <Link className={styles.logo} href={'/about'} >
                     <img 
@@ -48,7 +49,7 @@ export function Header({
                     />
                 </Link>
                 <span className={styles.profile}>
-                    <BsFillPersonFill fontSize={icon_size} color={icon_color} />
+                    <BsFillPersonFill fontSize={icon_size} color={icon_color}/>
                 </span>
                 <span className={styles.cart}>
                     <BsCartPlusFill fontSize={icon_size} color={icon_color}/>
@@ -56,8 +57,9 @@ export function Header({
             </div>
         </header>
     )
-
 }
+
+
 
 // Configurable API Header:
 // ----------------

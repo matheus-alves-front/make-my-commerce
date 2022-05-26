@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react"
+import axios from "axios"
+import { FormEvent, useEffect, useState } from "react"
 
 import styles from './headerBuilder.module.scss'
 
@@ -7,23 +8,37 @@ interface HeaderBuilder {
         logoSize: number,
         iconSize: number,
         iconColor: string,
+        backgroundColor: string,
     ) => void
 }
 
 export function HeaderBuilder({HeaderBuilderProps}: HeaderBuilder) {
     const [logoSize, setLogoSize] = useState(100)
     const [iconSize, setIconSize] = useState(25)
-    const [iconColor, setIconColor] = useState('')
+    const [iconColor, setIconColor] = useState('#000000')
+    const [backgroundColor, setBackgroundColor] = useState('#FFFFFF')
 
-    useEffect(() => {
-    //   console.log({logoSize, iconSize, iconColor})
-      HeaderBuilderProps(logoSize, iconSize, iconColor)
-    }, [logoSize, iconSize, iconColor])
+    
+    useEffect(() => { 
+      HeaderBuilderProps(logoSize, iconSize, iconColor, backgroundColor)
+    }, [logoSize, iconSize, iconColor, backgroundColor])
+
+    function handleApiHeaderBuilder(event: FormEvent) {
+        event.preventDefault()
+
+        axios.put('/api/CommerceBuilder/header', {
+            logo_size: logoSize,
+            icon_size: iconSize,
+            icon_color: iconColor
+        })
+    }
+
+    
     
     return (
         <>
             <section className={styles.HeaderBuilder}>
-                <form action="" method="post">
+                <form onSubmit={handleApiHeaderBuilder} action="submit" method="post">
                     <label htmlFor="logo-size">Logo Size:</label>
                     <input 
                         type="range" 
@@ -50,6 +65,15 @@ export function HeaderBuilder({HeaderBuilderProps}: HeaderBuilder) {
                         value={iconColor}
                         onChange={(e) => setIconColor(e.target.value)} 
                     />
+                    <label htmlFor="icons-color">Background Color:</label>
+                    <input 
+                        type="color" 
+                        id="background-header-color" 
+                        name="background-header-color"
+                        value={backgroundColor}
+                        onChange={(e) => setBackgroundColor(e.target.value)} 
+                    />
+                    <button type="submit">Configurar</button>
                 </form>
             </section>
         </>
